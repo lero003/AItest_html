@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ファイナルファンタジーXX - 新たなクリスタルの物語</title>
+    <style>
+        :root {
+            --text-color: #f5f5f7;
+            --bg-color: #1d1d1f;
+            --secondary-bg-color: #000;
+            --highlight-color: #2997ff;
+            --subtle-text-color: #a1a1a6;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--secondary-bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .section {
+            min-height: 90vh;
+            padding: 100px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .section:nth-child(odd) {
+             background-color: var(--bg-color);
+        }
+        .section:nth-child(even) {
+             background-color: var(--secondary-bg-color);
+        }
+        .section:last-of-type {
+            border-bottom: none;
+            min-height: 50vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a10 0%, #1a1a2a 100%);
+        }
+
+        h1 {
+            font-size: 4rem; /* 64px */
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            color: #fff; /* White for hero */
+        }
+
+        h2 {
+            font-size: 2.5rem; /* 40px */
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 500;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1.125rem; /* 18px */
+            max-width: 700px;
+            margin: 0 auto 1rem auto;
+            color: var(--subtle-text-color);
+        }
+
+        .section p.lead {
+            font-size: 1.3rem; /* 21px */
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .content-block {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .svg-container {
+            margin: 3rem 0;
+            max-width: 100%;
+        }
+
+        svg {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--highlight-color);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem; /* 16px */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 1.5rem;
+        }
+
+        .cta-button:hover {
+            background-color: #4aaaff;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #111;
+            color: var(--subtle-text-color);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.875rem; /* 14px */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; } /* 48px */
+            h2 { font-size: 2rem; } /* 32px */
+            p { font-size: 1rem; } /* 16px */
+            .section p.lead { font-size: 1.1rem; } /* ~17.5px */
+            .section { padding: 60px 20px; }
+        }
+
+        /* Basic SVG styles */
+        .crystal-svg path { fill: url(#crystalGradient); }
+        .world-svg rect { fill: #5a67d8; } /* Indigo */
+        .world-svg circle { fill: #a0aec0; } /* Gray 400 */
+        .battle-svg polyline { stroke: var(--highlight-color); stroke-width: 4; fill: none; }
+        .battle-svg circle { fill: var(--highlight-color); }
+        .tech-svg path { fill: #4a5568; } /* Gray 600 */
+        .character-svg .liam { fill: #c53030; } /* Red 600 */
+        .character-svg .celestia { fill: #9f7aea; } /* Purple 500 */
+
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="section hero">
+        <div class="content-block">
+            <h1>ファイナルファンタジーXX</h1>
+            <p class="lead">運命を超え、未来を切り開け。新たなクリスタルの物語が、今、始まる。</p>
+            <div class="svg-container">
+                <svg class="crystal-svg" width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="crystalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#87cefa; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1e90ff; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M50 0 L65 35 L100 35 L75 60 L85 95 L50 75 L15 95 L25 60 L0 35 L35 35 Z"/>
+                </svg>
+            </div>
+            <p>2027年、PlayStation®6 / Xbox Series X|S / PC にて発売予定</p>
+            <p style="font-size: 0.9rem; color: var(--subtle-text-color);">※画面は開発中のものです。内容は予告なく変更される場合があります。</p>
+        </div>
+    </section>
+
+    <!-- World Section -->
+    <section class="section">
+        <div class="content-block">
+            <h2>忘れられた魔法と、空に浮かぶ大陸<br>世界「アルカディア」</h2>
+            <p>物語の舞台は、かつて高度な魔法文明が栄華を極めた世界「アルカディア」。しかし、”大崩壊”と呼ばれる災厄により、文明はその輝きを失い、大地は引き裂かれ、人々は空に浮かぶ巨大な大陸の断片で暮らすことを余儀なくされた。クリスタルの加護は薄れ、世界には異形のモンスターが跋扈し、資源を巡る争いが絶えない。各地に残る古代遺跡には、失われた技術と世界の真実が眠っていると言われているが、その深淵に足を踏み入れる者は少ない。プレイヤーは、この荒廃しながらも美しい世界で、クリスタルの力を巡る壮大な運命に巻き込まれていく。空に浮かぶ島々を飛空艇で巡り、隠されたダンジョンを探検し、アルカディアの謎を解き明かす冒険が待っている。風化した石碑に刻まれた古代文字、忘れ去られた神々の伝説、そしてクリスタルが秘める本当の意味とは？ この世界の未来は、あなたの選択にかかっている。</p>
+            <div class="svg-container">
+                <svg class="world-svg" width="300" height="150" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="10" y="20" width="80" height="40" rx="5"/>
+                  <rect x="110" y="40" width="70" height="50" rx="5"/>
+                  <circle cx="50" cy="80" r="10"/>
+                  <circle cx="145" cy="20" r="15"/>
+                </svg>
+            </div>
+             <p>浮遊大陸の壮大な景観、古代文明の謎めいた遺跡、そしてそこに息づく多様な文化。アルカディアの隅々まで、驚きと発見に満ちている。探索の自由度は高く、メインストーリー以外にも豊富なサブクエストやミニゲームが用意されており、プレイヤーは自分だけの冒険譚を紡ぐことができるだろう。各地の集落では、個性豊かな住民たちとの出会いが待っている。彼らとの交流を通じて、世界の断片的な情報を集め、アルカディアの全体像を理解していくことが重要となる。</p>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section class="section">
+        <div class="content-block">
+             <h2>運命に導かれし者たち</h2>
+             <p>物語を彩る、魅力的なキャラクター。彼らの出会いが、世界の運命を大きく動かす。</p>
+
+             <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 3rem;">
+                 <div style="flex-basis: 45%; margin-bottom: 2rem; text-align: center;">
+                     <svg class="character-svg" width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect class="liam" x="30" y="10" width="40" height="80" rx="5"/>
+                        <rect class="liam" x="10" y="40" width="80" height="20" rx="5"/>
+                     </svg>
+                     <h3 style="color: #e53e3e;">リアム (Liam)</h3>
+                     <p style="font-size: 1rem;">辺境の浮遊島で育った若き剣士。幼い頃の記憶を失っており、自身の出自とクリスタルに纏わる不吉な夢の謎を追って旅に出る。正義感が強く、困っている人を放っておけない性格だが、時折、内に秘めた破壊的な衝動に苦しむことがある。相棒の飛竜「ゲイル」と共に大空を駆ける。</p>
+                 </div>
+                 <div style="flex-basis: 45%; margin-bottom: 2rem; text-align: center;">
+                     <svg class="character-svg" width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="celestia" cx="50" cy="50" r="40"/>
+                        <path class="celestia" d="M50 20 L55 45 L80 50 L55 55 L50 80 L45 55 L20 50 L45 45 Z" fill="#fff"/>
+                     </svg>
+                     <h3 style="color: #b794f4;">セレスティア (Celestia)</h3>
+                     <p style="font-size: 1rem;">古代魔法を操る謎多き魔導士。アルカディアの歴史と星々の運行を読み解く知識を持つ。冷静沈着で、感情を表に出すことは少ないが、世界の調和を誰よりも願っている。リアムの持つ特別な力に気づき、彼の旅に同行することになる。彼女の目的とは一体何なのか。</p>
+                 </div>
+             </div>
+             <p>彼らの他にも、陽気な機械技師、誇り高き竜騎士、神秘的な踊り子など、個性豊かな仲間たちが登場し、壮大な物語を織りなしていく。それぞれのキャラクターが抱える過去や葛藤、そして成長の物語も深く描かれる。</p>
+        </div>
+    </section>
+
+    <!-- Gameplay Section -->
+    <section class="section">
+        <div class="content-block">
+            <h2>戦略性と爽快感の融合<br>「ダイナミック・シフト・バトル」</h2>
+            <p>本作では、伝統的なコマンドバトルとリアルタイムアクションがシームレスに融合した新システム「ダイナミック・シフト・バトル」を採用。戦況に応じて操作キャラクターを瞬時に切り替え（シフト）、それぞれの特性を活かした連携攻撃「リンクアーツ」を繰り出すことが勝利の鍵となる。敵の行動パターンを見極め、弱点を突き、ブレイク状態を狙う戦略的な思考と、迫力のアクションが融合した、これまでにないバトル体験を提供する。さらに、ジョブシステムも大幅に進化。特定の条件を満たすことで、上位ジョブや複合ジョブへの道が開かれる。自由なカスタマイズで、自分だけの最強パーティを作り上げよう。</p>
+            <div class="svg-container">
+                <svg class="battle-svg" width="300" height="100" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="20,50 80,80 140,20 200,50 260,80 280,50"/>
+                  <circle cx="20" cy="50" r="8"/>
+                  <circle cx="140" cy="20" r="8"/>
+                  <circle cx="280" cy="50" r="8"/>
+                </svg>
+            </div>
+            <p>フィールド探索からバトルへの移行は完全にシームレス。広大な世界を移動しながら、遭遇した敵と即座に戦闘を開始できる。バトル中は、地形や天候も戦術に影響を与える要素となる。例えば、雨の日は雷属性の魔法が強化され、高所からの攻撃はダメージが増加するなど、環境を利用した戦いが可能。召喚獣も健在。シリーズおなじみの召喚獣たちが、圧倒的なグラフィックと迫力で登場し、戦況を一変させる力を持つ。召喚獣ごとに異なる契約条件や育成要素も用意されている。</p>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="section">
+        <div class="content-block">
+            <h2>次世代の映像体験<br>「クリスタルエンジン V」</h2>
+            <p>本作のために新たに開発されたゲームエンジン「クリスタルエンジン V」により、ファイナルファンタジー史上、最も美しく、最も広大な世界の表現を実現。フォトリアルなキャラクターモデリング、緻密に描かれた浮遊大陸の風景、そしてダイナミックな天候変化や光の表現が、プレイヤーをアルカディアの世界へと深く没入させる。ローディング時間をほぼ感じさせないシームレスなゲームプレイ体験と、圧倒的な物量で描かれるモンスターやエフェクトが、次世代のRPG体験を定義する。サウンドにも注力。フルオーケストラによる壮大な楽曲、環境音、キャラクターボイスが、物語をドラマティックに彩る。</p>
+            <div class="svg-container">
+                 <svg class="tech-svg" width="150" height="150" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10 a 40 40 0 1 1 0 80 a 40 40 0 1 1 0 -80 M50 20 a 30 30 0 1 0 0 60 a 30 30 0 1 0 0 -60"/>
+                    <path d="M50 30 L50 0 M50 70 L50 100 M70 50 L100 50 M30 50 L0 50 M64 64 L85 85 M36 36 L15 15 M36 64 L15 85 M64 36 L85 15"/>
+                 </svg>
+            </div>
+            <p>特にキャラクターの表情や感情の表現には最新のフェイシャルアニメーション技術を導入。カットシーンだけでなく、通常の会話シーンにおいても、キャラクターたちの細やかな感情の動きが伝わるようになっている。また、世界の広大さを損なうことなく、ディテールにもこだわった作り込みが随所に見られる。道端の草花から、遠景に見える巨大な建造物まで、すべてが高い解像度とリアリティで描かれている。</p>
+        </div>
+    </section>
+
+    <!-- Pre-order Section -->
+    <section class="section">
+        <div class="content-block">
+            <h2>未来を、その手に。</h2>
+            <p>ファイナルファンタジーXXは、シリーズの伝統を受け継ぎながら、新たな次元へと進化を遂げます。壮大な物語、魅力的なキャラクター、革新的なゲームプレイ、そして息をのむほどの映像美。そのすべてが、あなたを待っています。</p>
+            <a href="#" class="cta-button">今すぐ予約する</a>
+             <p style="font-size: 0.9rem; color: var(--subtle-text-color; margin-top: 2rem;">対応プラットフォーム： PlayStation®6 / Xbox Series X|S / PC (Steam®)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 SQUARE ENIX (FICTIONAL). ALL RIGHTS RESERVED.<br>
+        FINAL FANTASY, SQUARE ENIX and the SQUARE ENIX logo are registered trademarks or trademarks of Square Enix Holdings Co., Ltd.<br>
+        "PlayStation" and "PS6" are registered trademarks or trademarks of Sony Interactive Entertainment Inc. "Xbox Series X|S" are trademarks of the Microsoft group of companies. Steam and the Steam logo are trademarks and/or registered trademarks of Valve Corporation in the U.S. and/or other countries.</p>
+        <p style="margin-top: 1rem; font-style: italic;">※このWebサイト及び記載内容は全て架空のものです。実在の人物、団体、製品、ゲームタイトルとは一切関係ありません。</p>
+    </footer>
+
+</body>
+</html>
