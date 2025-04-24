@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynapseLink - コミュニケーションの特異点へ</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f0f0f0; /* Fallback background */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Impact', 'Arial Black', 'Helvetica Neue', sans-serif; /* Persona-like bold font */
+            font-weight: bold;
+            line-height: 1.2;
+            text-transform: uppercase; /* Emphasize titles */
+        }
+
+        section {
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden; /* For clip-path and absolute positioning */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative; /* For absolute positioned elements within sections */
+            z-index: 2; /* Ensure content is above background elements */
+        }
+
+        /* --- Colors & Gradients --- */
+        :root {
+            --color-red: #FF1744;
+            --color-blue: #2979FF;
+            --color-yellow: #FFEA00;
+            --color-green: #00E676;
+            --color-purple: #D500F9;
+            --color-dark: #212121;
+            --color-light: #FFFFFF;
+        }
+
+        .rainbow-gradient {
+            background: linear-gradient(135deg, var(--color-red), var(--color-yellow), var(--color-green), var(--color-blue), var(--color-purple));
+        }
+
+        .bg-red { background-color: var(--color-red); color: var(--color-light); }
+        .bg-blue { background-color: var(--color-blue); color: var(--color-light); }
+        .bg-yellow { background-color: var(--color-yellow); color: var(--color-dark); } /* Dark text on yellow */
+        .bg-green { background-color: var(--color-green); color: var(--color-dark); } /* Dark text on green */
+        .bg-purple { background-color: var(--color-purple); color: var(--color-light); }
+        .bg-dark { background-color: var(--color-dark); color: var(--color-light); }
+
+        /* --- Persona-like Design Elements --- */
+        .skew-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit; /* Inherit background from parent */
+            transform: skewY(-5deg); /* Adjust angle as needed */
+            z-index: -1; /* Place behind content */
+            transform-origin: top left;
+        }
+
+        .skew-divider-reverse::before {
+            content: '';
+            position: absolute;
+            bottom: 0; /* Changed to bottom */
+            right: 0;  /* Changed to right */
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            transform: skewY(5deg); /* Reverse angle */
+            z-index: -1;
+            transform-origin: bottom right; /* Changed origin */
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative; /* For pseudo-elements or absolute positioning */
+            letter-spacing: 2px;
+        }
+
+        .section-title-left-skew {
+            font-size: 3rem; /* Slightly smaller for skewed title */
+            margin-bottom: 50px;
+            text-align: left;
+            transform: rotate(-5deg);
+            display: inline-block; /* Allow transform */
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.1); /* Slight background for emphasis */
+            position: relative;
+            left: -20px; /* Adjust position */
+        }
+
+        .section-title-right-skew {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-align: right;
+            transform: rotate(5deg);
+            display: block; /* Make it block to align right */
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: relative;
+            right: -20px;
+            margin-left: auto; /* Push to the right */
+            max-width: max-content; /* Ensure it doesn't stretch full width */
+        }
+
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px; /* Slightly rounded corners */
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-transform: uppercase;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-yellow { background-color: var(--color-yellow); color: var(--color-dark); }
+        .btn-green { background-color: var(--color-green); color: var(--color-dark); }
+
+        .icon svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            fill: currentColor; /* Inherit color from parent text color */
+        }
+
+        /* --- Section Specific Styles --- */
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-light);
+            position: relative; /* Needed for pseudo-element */
+        }
+
+        .hero-section::before { /* Gradient background */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-red) 0%, var(--color-yellow) 25%, var(--color-green) 50%, var(--color-blue) 75%, var(--color-purple) 100%);
+            z-index: -1; /* Behind content */
+        }
+
+        .hero-section h1 {
+            font-size: 4rem; /* Larger */
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section .logo {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--color-light);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Features Section */
+        .features-section {
+            /* background-color: var(--color-red); Using bg-red class */
+            /* color: var(--color-light); Using bg-red class */
+            position: relative; /* For skew effect */
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.1); /* Slight contrast */
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .feature-item .feat-color-yellow { color: var(--color-yellow); }
+        .feature-item .feat-color-blue { color: var(--color-blue); }
+        .feature-item .feat-color-green { color: var(--color-green); }
+        .feature-item .feat-color-purple { color: var(--color-purple); }
+
+
+        /* Benefits Section */
+        .benefits-section {
+            /* background-color: var(--color-blue); Using bg-blue class */
+            /* color: var(--color-light); Using bg-blue class */
+            position: relative; /* For skew effect */
+        }
+
+        .benefits-list {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr; /* Single column initially */
+            gap: 50px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 8px;
+        }
+        /* Alternate item alignment */
+        .benefit-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .benefit-item img { /* Placeholder for image/illustration */
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            flex-shrink: 0; /* Prevent shrinking */
+            /* Basic placeholder style */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            color: #fff;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+           /* background-color: var(--color-yellow); Using bg-yellow class */
+           /* color: var(--color-dark); Using bg-yellow class */
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-item {
+            background-color: var(--color-light); /* White background for contrast on yellow */
+            color: var(--color-dark);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--color-red); /* Accent line */
+        }
+
+        .testimonial-item .author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-item .author-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-dark); /* Placeholder */
+            margin-right: 15px;
+            /* Basic placeholder style */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .testimonial-item .author-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+         .testimonial-item .author-details {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .testimonial-item blockquote {
+            font-style: italic;
+            border-left: 3px solid var(--color-blue);
+            padding-left: 15px;
+            margin-top: 10px;
+        }
+
+        /* Final CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 20px; /* More padding */
+            color: var(--color-light);
+        }
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--color-purple); /* Override section title color */
+        }
+        .cta-section p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            font-weight: bold;
+             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+         .cta-section .cta-subtext {
+            font-size: 0.9rem;
+            margin-top: 20px;
+            opacity: 0.8;
+         }
+
+        /* Footer Section */
+        .footer-section {
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-section .logo-small {
+            font-family: 'Impact', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--color-light);
+        }
+        .footer-section nav a {
+            color: inherit; /* Inherit color from parent */
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        .footer-section nav a:hover {
+            opacity: 1;
+        }
+        .footer-section p {
+            margin-top: 15px;
+            opacity: 0.7;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .section-title-left-skew, .section-title-right-skew {
+                font-size: 2rem;
+                transform: none; /* Remove skew on smaller screens */
+                text-align: center;
+                display: block;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-section h1 {
+                font-size: 2.8rem;
+            }
+             .hero-section .logo {
+                font-size: 3.5rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .benefit-item {
+                flex-direction: column; /* Stack image and text vertically */
+                text-align: center;
+            }
+             .benefit-item:nth-child(even) {
+                flex-direction: column; /* Ensure consistent stacking */
+            }
+             .benefit-item img {
+                margin-bottom: 20px; /* Add space below image */
+                width: 120px;
+                height: 120px;
+            }
+        }
+         @media (max-width: 480px) {
+            section {
+                padding: 60px 15px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+             .section-title-left-skew, .section-title-right-skew {
+                 font-size: 1.8rem;
+             }
+             .hero-section h1 {
+                font-size: 2.2rem;
+            }
+             .hero-section .logo {
+                font-size: 2.8rem;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            .testimonials-grid {
+                 grid-template-columns: 1fr; /* Force single column */
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="container">
+            <div class="logo">SynapseLink</div>
+            <h1>退屈な会話は、もう終わりだ。<br>未知なる “リンク” を、その手に。</h1>
+            <p>
+                SynapseLinkは、あなたの感情や思考をリアルタイムで色彩とカタチに変換し、言葉だけでは伝えきれないニュアンスを共有する、次世代のコミュニケーション・ハブ。さあ、まだ見ぬ自分と、世界と、繋がろう。
+            </p>
+            <a href="#download" class="cta-button btn-yellow">今すぐ SynapseLink の世界へ DIVE!</a>
+        </div>
+        </header>
+
+    <section id="features" class="features-section bg-red skew-divider">
+        <div class="container">
+            <h2 class="section-title section-title-left-skew">//:UNLOCK_YOUR_COMMUNICATION</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,90 C-20,40 20,0 50,30 C80,0 120,40 50,90 Z" fill="none" stroke="currentColor" stroke-width="5"/><polyline points="20,55 35,55 40,45 60,65 65,55 80,55" fill="none" stroke="currentColor" stroke-width="5"/></svg>
+                    </div>
+                    <h3 class="feat-color-yellow">感情を、色とカタチに。</h3>
+                    <p>テキスト入力と同時に、あなたの感情の起伏をAIがリアルタイム解析。ポジティブなら暖色系のエフェクト、ネガティブなら寒色系の波紋、驚きは弾ける星屑のように… 言葉だけでは伝わらない “心の動き” を、チャット画面にダイレクトに表示。誤解やすれ違いを減らし、より直感的で深い共感を生み出します。</p>
+                </div>
+                <div class="feature-item">
+                     <div class="icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 C77.6,10 100,32.4 100,60 C100,87.6 77.6,110 50,110 C22.4,110 0,87.6 0,60 C0,32.4 22.4,10 50,10 Z M50,25 C66.6,25 80,40.3 80,57.5 C80,74.7 66.6,90 50,90 C33.4,90 20,74.7 20,57.5 C20,40.3 33.4,25 50,25 Z" transform="rotate(45 50 60) scale(0.8 1.2)" fill="currentColor" opacity="0.7"/><path d="M50,40 C58.3,40 65,46.7 65,55 C65,63.3 58.3,70 50,70 C41.7,70 35,63.3 35,55 C35,46.7 41.7,40 50,40 Z" transform="rotate(45 50 55)" fill="currentColor"/></svg>
+                    </div>
+                    <h3 class="feat-color-blue">興味の渦へ、飛び込め。</h3>
+                    <p>従来のグループチャットとは違う、流動的な “トピック” ベースのチャンネル。誰かが投げかけた話題が熱を帯びると、自動的に一時的な “ダイブ・チャンネル” が生成。深く掘り下げたい人だけがそこへ移動し、集中して議論できます。話題が終わればチャンネルは消滅。ノイズが少なく、常に新鮮な会話が生まれる場所です。</p>
+                </div>
+                 <div class="feature-item">
+                     <div class="icon">
+                         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="15" fill="currentColor"/><path d="M30,50 C10,55 10,75 30,80 L30,90 M30,80 C50,75 50,55 30,50" stroke="currentColor" stroke-width="5" fill="none"/><circle cx="70" cy="30" r="15" fill="currentColor" opacity="0.7"/><path d="M70,50 C50,55 50,75 70,80 L70,90 M70,80 C90,75 90,55 70,50" stroke="currentColor" stroke-width="5" fill="none" opacity="0.7"/><line x1="45" y1="65" x2="55" y2="65" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="feat-color-green">もう一人の “自分” で、繋がる。</h3>
+                    <p>気分やTPOに合わせてカスタマイズ可能なアバターでコミュニケーション。さらに、会話の盛り上がりや感情表現とアバターのアクションがリアルタイムでシンクロ！喜びを全身で表現したり、驚きで飛び上がったり。テキストだけでは物足りない、豊かな自己表現が可能です。アバターアイテムも続々登場予定！</p>
+                </div>
+                 <div class="feature-item">
+                     <div class="icon">
+                         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,80 Q50,95 80,80 Q95,50 80,20 Q50,5 20,20 Q5,50 20,80 Z" fill="currentColor" opacity="0.2"/><path d="M50,20 C60,20 65,30 65,40 C65,60 40,65 40,80 M60,80" stroke="currentColor" stroke-width="6" fill="none"/><circle cx="50" cy="50" r="8" fill="currentColor"/><line x1="50" y1="65" x2="50" y2="75" stroke="currentColor" stroke-width="6"/><path d="M30,75 Q50,85 70,75" fill="none" stroke="currentColor" stroke-width="5"/></svg>
+                    </div>
+                    <h3 class="feat-color-purple">最適な “次の一言” を提案。</h3>
+                    <p>会話が途切れた時、相手にどう返信すればいいか迷った時、AIパルが文脈を読み取り、最適な返答候補や、会話を盛り上げるための面白い話題、関連情報などをそっと提案。コミュニケーションが苦手な人も、SynapseLinkなら自然体で会話を楽しめます。あなたの頼れる相棒です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits" class="benefits-section bg-blue skew-divider-reverse">
+        <div class="container">
+             <h2 class="section-title section-title-right-skew">&gt;&gt;&gt;DIVE_INTO_THE_NEW_REALM</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff33'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23fff' text-anchor='middle'%3E共感イメージ%3C/text%3E%3C/svg%3E" alt="共感イメージ">
+                    <div>
+                        <h3>言葉を超えた “共感” 体験</h3>
+                        <p>『嬉しい！』『楽しい！』『大好き！』… そのポジティブな感情、もっとストレートに伝えたいと思いませんか？ SynapseLinkなら、あなたの気持ちが色とりどりの光やアニメーションとなって相手に届きます。逆に、相手の細やかな感情の変化も視覚的にキャッチできるから、『なんだか元気なさそうだな』『すごく喜んでくれてる！』といったニュアンスも一目瞭然。まるで隣にいるかのような、温かい “共感” が生まれます。</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff33'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23fff' text-anchor='middle'%3E発見イメージ%3C/text%3E%3C/svg%3E" alt="発見イメージ">
+                    <div>
+                        <h3>興味で繋がる、無限の “発見”</h3>
+                        <p>共通の趣味を持つ仲間と、とことん語り合いたい。ニッチな話題で盛り上がりたい。SynapseLinkのトピック・ダイブ・チャンネルなら、あなたの知的好奇心を満たす “深掘り” が可能です。ゲームの攻略法、最新の音楽、専門的な技術の話… 熱量の高い仲間が集まり、次々と新しい知識や視点に出会える。毎日が刺激的な “発見” の連続です。</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff33'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23fff' text-anchor='middle'%3E自由な自己表現%3C/text%3E%3C/svg%3E" alt="自由な自己表現イメージ">
+                    <div>
+                        <h3>“なりたい自分” で、自由なコミュニケーション</h3>
+                         <p>現実の自分とはちょっと違うキャラクターで話してみたい。内気な自分を解放したい。アバター・シンクロ機能を使えば、理想の “もう一人の自分” になって、もっと自由に、もっと大胆に、コミュニケーションを楽しめます。リアルでは言えない本音も、アバターを通せば気軽に話せるかも？ 新しい自分を発見し、人との繋がりを再構築しましょう。</p>
+                    </div>
+                </div>
+                 <div class="benefit-item">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff33'/%3E%3Ctext x='50' y='55' font-size='12' fill='%23fff' text-anchor='middle'%3Eコミュニケーション支援%3C/text%3E%3C/svg%3E" alt="コミュニケーション支援イメージ">
+                    <div>
+                        <h3>コミュ力 “ブースト” で、円滑な人間関係</h3>
+                        <p>初対面の人と何を話せばいいか分からない。グループチャットで発言するタイミングが難しい。そんな悩みもAIパル・コーディネーターがいれば安心。会話の流れを読み取り、気の利いた質問や面白いネタを提供して、あなたのコミュニケーションを強力にサポート。人間関係がもっとスムーズに、もっと楽しくなる “ブースト” を体験してください。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials-section bg-yellow">
+        <div class="container">
+            <h2 class="section-title">VOICES_FROM_THE_OTHER_SIDE</h2>
+             <div class="testimonials-grid">
+                <div class="testimonial-item">
+                    <div class="author">
+                        <div class="author-icon" style="background-color: #e64a19;">R</div> <div>
+                            <span class="author-name">REX</span><br>
+                            <span class="author-details">20代 / 大学生</span>
+                        </div>
+                    </div>
+                    <blockquote>
+                        マジで神アプリ！友達とゲームの話してるとき、興奮度が色で伝わるのがヤバい。『あのボス強すぎ！』って打つと画面が赤く点滅したりして、臨場感がハンパない。あと、トピック・ダイブで知らない人と攻略情報交換できるのも最高。もう他のチャットアプリには戻れないわ。
+                    </blockquote>
+                </div>
+                 <div class="testimonial-item">
+                    <div class="author">
+                         <div class="author-icon" style="background-color: #7b1fa2;">C</div>
+                        <div>
+                            <span class="author-name">Canvas</span><br>
+                            <span class="author-details">30代 / クリエイター</span>
+                        </div>
+                    </div>
+                    <blockquote>
+                        言葉だけだと誤解されやすい微妙な感情も、エモーショナル・リアクターのおかげで伝えやすくなりました。特に、リモートでの共同制作中に、メンバーの反応が視覚的にわかるのはすごく助かります。アバターも気分で変えられるから、オンラインでの自己表現の幅が広がった感じ。インスピレーションも湧きやすい！
+                    </blockquote>
+                </div>
+                <div class="testimonial-item">
+                     <div class="author">
+                        <div class="author-icon" style="background-color: #fbc02d;">ひ</div>
+                        <div>
+                            <span class="author-name">ひまり</span><br>
+                            <span class="author-details">10代 / 高校生</span>
+                        </div>
+                    </div>
+                    <blockquote>
+                         人見知りで、グループチャットだとROM専になりがちだったけど、SynapseLinkだとAIパルが『こんなこと聞いてみたら？』ってアドバイスくれるから、前より発言できるようになった！アバターも可愛くカスタムできるし、友達との何気ないおしゃべりがもっと楽しくなった気がする。感情が色で出るのも面白い！
+                    </blockquote>
+                </div>
+                 <div class="testimonial-item">
+                     <div class="author">
+                        <div class="author-icon" style="background-color: #1976d2;">K</div>
+                        <div>
+                            <span class="author-name">K.Sato</span><br>
+                            <span class="author-details">40代 / 会社員</span>
+                        </div>
+                    </div>
+                    <blockquote>
+                         最初は若者向けかと思いましたが、意外とビジネスシーンでも使えます。特にトピック・ダイブは、特定の案件について関係者だけでサッと集まって議論するのに便利。本題からズレずに集中できるし、後からログを追うのも楽。感情表現も、アイスブレイクやチームの雰囲気作りに役立っています。
+                    </blockquote>
+                </div>
+             </div>
+        </div>
+    </section>
+
+    <section id="download" class="cta-section rainbow-gradient">
+        <div class="container">
+            <h2>READY_TO_JOIN?</h2>
+            <p>常識を、書き換えろ。<br>コミュニケーションの “特異点” へ、今すぐアクセス。</p>
+            <a href="#download-app" class="cta-button btn-green">SynapseLink をダウンロードして、新しい世界を体験する</a>
+            <p class="cta-subtext">iOS / Android 対応。基本プレイ無料（一部アイテム課金あり）</p>
+        </div>
+    </section>
+
+    <footer class="footer-section bg-dark">
+        <div class="container">
+            <div class="logo-small">SynapseLink</div>
+            <nav>
+                <a href="#terms">利用規約</a> |
+                <a href="#privacy">プライバシーポリシー</a> |
+                <a href="#contact">お問い合わせ</a> |
+                <a href="#company">運営会社</a>
+            </nav>
+            <p>&copy; 2025 SynapseLink Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    </body>
+</html>
