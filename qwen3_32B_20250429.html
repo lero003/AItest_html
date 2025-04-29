@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YabaChat – 満足度100%のチャットサービス</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(45deg, #FF6B6B, #F9A825, #03DAC6, #6A1B9A);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+            padding: 2rem;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 20px #FE61CE;
+        }
+        section {
+            margin-bottom: 3rem;
+            background: rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+        .feature {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .icon {
+            width: 60px;
+            height: 60px;
+            fill: currentColor;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background: linear-gradient(to right, #FF416C, #FFA260);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 0 20px #FF416C;
+            transition: transform 0.3s;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 4px solid #FFD700;
+        }
+        .quote::before {
+            content: '“';
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            font-size: 2rem;
+            color: #FFA500;
+        }
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>YabaChat – 満足度100%のチャットサービス</h1>
+        <p>デザインに虹色と原色を、機能にゲーム「ペルソナ」のような冒険心を盛り込んだYabaChat。</p>
+    </header>
+
+    <!-- 機能セクション -->
+    <section>
+        <h2>【機能】YabaChatが「ヤバい」4つの理由</h2>
+        <div class="feature">
+            <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 2L2 18h20L12 2zm0 16.5l-6-13H8l4 7.5 4-7.5h-2l6 13z" fill="#FFD700"/>
+            </svg>
+            <div>
+                <h3>ペルソナを彷彿とさせるUIデザイン</h3>
+                <p>虹色をベースに、赤・青・黄などの原色が際立つUI。テーマパック300種類以上の変更が可能。</p>
+            </div>
+        </div>
+        <div class="feature">
+            <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="#FF416C"/>
+            </svg>
+            <div>
+                <h3>感情を「視覚化」するステイタスアイコン</h3>
+                <ul>
+                    <li>✅「喜びの虹」</li>
+                    <li>🔥「炎の怒り」</li>
+                    <li>🌈「夢中Mode」</li>
+                </ul>
+            </div>
+        </div>
+        <div class="feature">
+            <svg class="icon" viewBox="0  /24">
+                <rect width="24" height="24" fill="#FFA260"/>
+            </svg>
+            <div>
+                <h3>リアルタイム翻訳＋音声変換機能</h3>
+                <p>国際会議チャットルームモードでの翻訳と音声変換。</p>
+            </div>
+        </div>
+        <div class="feature">
+            <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" fill="#FF6B6B"/>
+            </svg>
+            <div>
+                <h3>チャット中に「クエスト」発生！</h3>
+                <p>特定のハート数を送ると報酬がもらえます。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能セクション -->
+    <section>
+        <h2>【できること】YabaChatだけで完結するコミュニケーション</h2>
+        <p><strong>チャットプラス</strong>による多機能連携：</p>
+        <ul>
+            <li>🔥 音声チャット（音声エフェクト付き）</li>
+            <li>🎥 動画共有（ストーリー風投稿）</li>
+            <li>👤 グループチャットのテーマ色</li>
+        </ul>
+    </section>
+
+    <!-- ユーザーの声セクション -->
+    <section>
+        <h2>【ユーザーの声】なぜ「ヤバチャット」にハマったのか？</h2>
+        <div class="quote">
+            <p>「音声チャットで友達とドラゴンクエスト感を再現して遊べるの最高です！」</p>
+            <p>- 中学生ユーザー</p>
+        </div>
+        <div class="quote">
+            <p>「国際的なクライアントと会話するとき、翻訳機能と音声変換が強い味方です。」</p>
+            <p>- デザイナー</p>
+        </div>
+    </section>
+
+    <!-- 理由セクション -->
+    <section>
+        <h2>【なぜYabaChat？】世界中が選ぶ理由</h2>
+        <ul>
+            <li>🎮 ペルソナ風UIで冒険感を体感</li>
+            <li>❤️ 感情が見えるコミュニケーション</li>
+            <li>🌍 誰もが楽しめる多層構造</li>
+        </ul>
+    </section>
+
+    <!-- Call to Action -->
+    <section>
+        <h2>今すぐYabaChatを試そう！</h2>
+        <p>30日間限定で「ペルソナ風テーマ」を無料トライアル中！</p>
+        <a href="#cta" class="cta-button">虹色をクリック</a>
+    </section>
+
+    <footer>
+        <p>© YabaChat 2023</p>
+    </footer>
+
+    <script>
+        // シンプルなアニメーション
+        document.querySelectorAll('.feature').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.transform = 'scale(1.05)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
