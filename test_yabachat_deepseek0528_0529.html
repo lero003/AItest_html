@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ヤバチャット - 世界で一番満足度の高いチャットサービス</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --rainbow-red: #FF416C;
+            --rainbow-orange: #FF4B2B;
+            --rainbow-yellow: #FFD000;
+            --rainbow-green: #00D280;
+            --rainbow-blue: #0077FF;
+            --rainbow-purple: #8A2BE2;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--rainbow-purple);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo-icon {
+            color: var(--rainbow-green);
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--rainbow-yellow);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rainbow-red), var(--rainbow-orange));
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(90deg, var(--rainbow-red), var(--rainbow-orange));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.7);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rainbow-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                var(--rainbow-red), 
+                var(--rainbow-orange), 
+                var(--rainbow-yellow), 
+                var(--rainbow-green), 
+                var(--rainbow-blue), 
+                var(--rainbow-purple),
+                var(--rainbow-red));
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-yellow), var(--rainbow-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.6rem;
+            max-width: 800px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .subtitle {
+            font-size: 1.8rem !important;
+            font-weight: 700;
+            margin-top: 10px;
+            background: linear-gradient(45deg, var(--rainbow-blue), var(--rainbow-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rainbow-red), var(--rainbow-purple));
+            border-radius: 5px;
+        }
+        
+        /* 機能セクション */
+        .features {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 30, 50, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card:nth-child(1) { border-top: 5px solid var(--rainbow-red); }
+        .feature-card:nth-child(2) { border-top: 5px solid var(--rainbow-orange); }
+        .feature-card:nth-child(3) { border-top: 5px solid var(--rainbow-yellow); }
+        .feature-card:nth-child(4) { border-top: 5px solid var(--rainbow-green); }
+        .feature-card:nth-child(5) { border-top: 5px solid var(--rainbow-blue); }
+        .feature-card:nth-child(6) { border-top: 5px solid var(--rainbow-purple); }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon.i1 { color: var(--rainbow-red); }
+        .feature-icon.i2 { color: var(--rainbow-orange); }
+        .feature-icon.i3 { color: var(--rainbow-yellow); }
+        .feature-icon.i4 { color: var(--rainbow-green); }
+        .feature-icon.i5 { color: var(--rainbow-blue); }
+        .feature-icon.i6 { color: var(--rainbow-purple); }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #fff, #eee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* ユーザーボイス */
+        .testimonials {
+            margin-top: 80px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            font-size: 100px;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: serif;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #0077FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--rainbow-purple), var(--rainbow-blue));
+        }
+        
+        .user-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .user-role {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin: 10px;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s;
+        }
+        
+        .stat-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--rainbow-yellow);
+        }
+        
+        /* アクションセクション */
+        .action {
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .action .rainbow-backdrop {
+            opacity: 0.2;
+        }
+        
+        .action-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .action h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-blue), var(--rainbow-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .action p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+        }
+        
+        .action-button {
+            padding: 15px 50px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* アニメーション */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-comment-dots logo-icon"></i>
+                    <span>ヤバチャット</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">特徴</a></li>
+                    <li><a href="#">機能</a></li>
+                    <li><a href="#">価格</a></li>
+                    <li><a href="#">レビュー</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+                <a href="#" class="cta-button">今すぐ始める</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="rainbow-backdrop"></div>
+        <div class="container">
+            <h1>伝わる会話、つながる想い</h1>
+            <div class="subtitle">世界で一番満足度の高いチャットサービス</div>
+            <p>ヤバチャットは、あなたのコミュニケーション体験を劇的に変えます。圧倒的な高速性、抜群のセキュリティ、無限のカスタマイズ性を兼ね備えた次世代チャットアプリケーション。</p>
+            <a href="#" class="cta-button">無料でダウンロード</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">ヤバチャットの特徴</h2>
+            <div class="features">
+                <div class="features-grid">
+                    <div class="feature-card floating">
+                        <div class="feature-icon i1"><i class="fas fa-rocket"></i></div>
+                        <h3>超高速メッセージング</h3>
+                        <p>最先端の通信技術により、メッセージ送信から相手のデバイス到達まで平均0.02秒。タテヨコのグローバルネットワークが世界中の会話を即時に繋ぎます。60秒で地球10周分の距離を通信可能なスピードを実現。</p>
+                    </div>
+                    
+                    <div class="feature-card floating" style="animation-delay: 0.2s">
+                        <div class="feature-icon i2"><i class="fas fa-shield-alt"></i></div>
+                        <h3>軍事級セキュリティ</h3>
+                        <p>エンドツーエンド暗号化に量子耐性アルゴリズムを採用。通信速度を犠牲にすることなく世界最高水準の安全性を実現。国際セキュリティ機関から最高基準のAAA+評価を取得しています。</p>
+                    </div>
+                    
+                    <div class="feature-card floating" style="animation-delay: 0.4s">
+                        <div class="feature-icon i3"><i class="fas fa-bolt"></i></div>
+                        <h3>パワフル・カスタマイズ</h3>
+                        <p>5000種類以上のテーマと10万以上のスタンプパック。チャット画面はまるでゲーム画面のようにカスタマイズ可能。AI色調調整機能があなたの気分に合わせてUIを最適化します。</p>
+                    </div>
+                    
+                    <div class="feature-card floating" style="animation-delay: 0.6s">
+                        <div class="feature-icon i4"><i class="fas fa-language"></i></div>
+                        <h3>リアルタイム翻訳</h3>
+                        <p>120言語のリアルタイム翻訳精度99.97%。スラングや方言も正確に変換。会話中の翻訳レイテンシは0.001秒以下で、異なる言語を使っていても同じチャットグループで自然に会話できます。</p>
+                    </div>
+                    
+                    <div class="feature-card floating" style="animation-delay: 0.8s">
+                        <div class="feature-icon i5"><i class="fas fa-robot"></i></div>
+                        <h3>AIアシスタント統合</h3>
+                        <p>高度なAIが会話内容を分析し適切な提案や支援を提供。議事録作成、課題整理、意思決定までサポート。会話からタスクを抽出し自動管理するプロアクティブアシスタント機能を搭載。</p>
+                    </div>
+                    
+                    <div class="feature-card floating" style="animation-delay: 1.0s">
+                        <div class="feature-icon i6"><i class="fas fa-vr-cardboard"></i></div>
+                        <h3>次世代3Dチャット</h3>
+                        <p>拡張現実（AR）と仮想現実（VR）を統合した3Dチャット空間。アバターを使って3次元空間で会議や交流が可能。空間音響技術により、まるで同じ空間にいるかのような没入感を実現。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">あなたのコミュニケーションでできること</h2>
+            
+            <div class="capabilities">
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-number">8,000GB</div>
+                        <div>無料クラウドストレージ</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">500人</div>
+                        <div>グループチャット可能人数</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">4K</div>
+                        <div>ビデオ通話解像度</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100h</div>
+                        <div>連続通話可能時間</div>
+                    </div>
+                </div>
+                
+                <div style="max-width: 1000px; margin: 60px auto 0; background: rgba(200, 200, 255, 0.05); padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h3 style="text-align: center; margin-bottom: 30px; font-size: 1.8rem; color: var(--rainbow-green);">ヤバチャットで世界が変わる</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.9; margin-bottom: 20px;">
+                        ヤバチャットは単なるメッセージングアプリを超越しました。ビジネスプロジェクトの共同作業から、大規模なオンラインコミュニティの運営、家族の思い出を共有するプライベート空間まで、あらゆるコミュニケーションシーンで最適なソリューションを提供します。
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.9;">
+                        特許取得のストレスフリーUI設計により、子供から高齢者まで直感的に操作可能。30段階のアクセシビリティ設定で個々のニーズに完全対応。24時間365日のマルチチャンネルカスタマーサポートがあなたの会話を安全にサポートします。
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px;">
+                        <div>
+                            <h4 style="color: var(--rainbow-yellow); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-briefcase"></i> ビジネス向け機能</h4>
+                            <ul style="padding-left: 20px;">
+                                <li>プロジェクト別チャネル自動編成</li>
+                                <li>AI議事録自動生成とタスク抽出</li>
+                                <li>コンプライアンス対応自動監査</li>
+                                <li>データ分析ダッシュボード</li>
+                                <li>社外ユーザー専用ゲストアクセス</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: var(--rainbow-purple); margin-bottom: 15px; font-size: 1.3rem;"><i class="fas fa-users"></i> コミュニティ機能</h4>
+                            <ul style="padding-left: 20px;">
+                                <li>最大50万人規模コミュニティ対応</li>
+                                <li>自動モデレーションアシスタント</li>
+                                <li>イベント管理&自動リマインダー</li>
+                                <li>コンテンツキュレーションシステム</li>
+                                <li>レベル別アクセス制御</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">ユーザーの声</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">ヤバチャットに出会って、私たちのビジネスは劇的に変わりました。国際プロジェクトのコミュニケーションコストが60%削減。リアルタイム翻訳はまるで魔法のようです。特にAIが自動で議事録をまとめてくれる機能には感激しました！</p>
+                    <div class="user-info">
+                        <div class="user-avatar">Y.K</div>
+                        <div>
+                            <div class="user-name">山田太郎</div>
+                            <div class="user-role">グローバル企業 プロジェクトマネージャー</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">10万人規模のコミュニティを運営していますが、ヤバチャットの導入後、運営負担が驚くほど軽くなりました。自動モデレーション機能とチャネル管理ツールは素晴らしい。何よりゲームのようなカスタマイズ性でメンバーの満足度が急上昇しました！</p>
+                    <div class="user-info">
+                        <div class="user-avatar">A.S</div>
+                        <div>
+                            <div class="user-name">佐藤花子</div>
+                            <div class="user-role">コミュニティリーダー</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">家族で頻繁に使っています。祖父母でも簡単に操作できるデザインが素晴らしいです。ストアのスタンプを買うのが孫たちの楽しみになっています。AR挨拶機能で離れた家族と一緒に写真が撮れるのも嬉しい！使い始めてから家族の絆が深まりました。</p>
+                    <div class="user-info">
+                        <div class="user-avatar">T.N</div>
+                        <div>
+                            <div class="user-name">田中一郎</div>
+                            <div class="user-role">70歳 リタイア生活</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats" style="margin-top: 80px;">
+                <div class="stat-box" style="background: linear-gradient(45deg, rgba(255,0,0,0.2), rgba(255,166,0,0.2));">
+                    <div class="stat-number">98.7%</div>
+                    <div>顧客満足度</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(45deg, rgba(0,210,128,0.2), rgba(0,119,255,0.2));">
+                    <div class="stat-number">250M+</div>
+                    <div>全世界ユーザー数</div>
+                </div>
+                <div class="stat-box" style="background: linear-gradient(45deg, rgba(138,43,226,0.2), rgba(255,0,80,0.2));">
+                    <div class="stat-number">9.8/10</div>
+                    <div>平均アプリ評価</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section action">
+        <div class="rainbow-backdrop"></div>
+        <div class="container">
+            <div class="action-content">
+                <h2>今すぐ体験しよう</h2>
+                <p>ヤバチャットの革命的なコミュニケーション体験を、今すぐ無料でお試しください。すべての機能を7日間無料でご利用いただけます。今ならプレミアムスタンプパック30種類もプレゼント！</p>
+                <a href="#" class="cta-button action-button">無料ダウンロード</a>
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.7;">Windows, macOS, iOS, Android, Webブラウザに対応</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 ヤバチャット株式会社 - 世界をつなぐ虹色コミュニケーション</p>
+        </div>
+    </footer>
+
+    <script>
+        // スクロール時のヘッダーアニメーション
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 10, 20, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.8)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.7)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
+            }
+        });
+        
+        // ふわっと表示アニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 200);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.feature-card, .testimonial-card, .stat-box').forEach((el, index) => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
